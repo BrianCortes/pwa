@@ -1,0 +1,19 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(top, #79caf9 60%,#79caf9 60%,greenyellow 40%)
+}
+
+.pokebola{
+  width: 250px
+}
+
+.text{
+  text-align: center;
+  font-family: Courier New, Courier, monospace;
+  font-size: 20px;
+  color: palevioletred;
+}

@@ -1,0 +1,13 @@
+.App-cloud {
+  background-color:#79caf9;
+  width: 100vw;
+  height: 100vh;
+}
+.App-garden {
+  top: 60%;
+  left: 0;
+  position: absolute;
+  width: 100vw;
+  height: 40vh;
+  background-color: greenyellow;
+}
