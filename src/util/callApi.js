@@ -5,9 +5,9 @@ var pokemon_api = axios.create({
 });
 
 const api = {
-  getPokemon: (id) => {
+  getPokemon: (user) => {
     console.log('consultando')
-    return pokemon_api.get(`/users/BrianCortes`)
+    return pokemon_api.get(`/users/${user}`)
   },
   getSprites: () => {
     return pokemon_api.get(`sprite/3/`)

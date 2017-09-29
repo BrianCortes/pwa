@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 import Api from '../util/callApi'
+import { random } from 'lodash'
 import PokeBall from './pokebola.png'
+import PokeOPen from './pokebolaoPen.png'
 import './pokemon.css'
 
 class Pokemon extends Component {
   state = {
     pokemon: {},
-    statePokeBall: false 
-  }
+    statePokeBall: false,
+    showPokemon: false,
+   }
   componentWillMount(){
-    Api.getPokemon(2)
+    const perfiles = [
+      'BrianCortes',
+      'andresfcardenas',
+      'Alegospina',
+      'davsket',
+      'ebar0n',
+      'julian-amaya',
+      'luisvillara',
+      'maximux13',
+      'migueljo',
+      'SoyAndresHernandez',
+      'JonathanRLopez',
+      'jjmedinas'
+    ]  
+    Api.getPokemon(perfiles[random(0,11)])
       .then((response) => {
         console.log('quien es ese pokemon')   
         const data = response.data
@@ -20,13 +37,16 @@ class Pokemon extends Component {
   }
   openPokeBall = () => {
     this.setState({statePokeBall: true})
+    setTimeout(() => this.setState({showPokemon: true}) , 2000)
   }
   getPokemon = () => {
     const pokemon = this.state.pokemon
+    debugger
     return (
-      <div>
-        <p>{pokemon.name}</p>
-        <img src='https://pokeapi.co/api/v1/media/img/2.png' alt=""/>
+      <div className='containerUser'>
+        <p className='nameUser'>{pokemon.name}</p>
+        <img src={pokemon.avatar_url} className='imageUser' alt=""/>
+        <p className='nameUser'>from: {pokemon.company}</p>
       </div>
     )
   }
@@ -34,9 +54,9 @@ class Pokemon extends Component {
   render(){
     return (
       <div className='container'>
-        { this.state.statePokeBall === false ?
+        { this.state.showPokemon === false ?
           <div>
-            <img src={PokeBall} alt="" onClick={()=> this.openPokeBall()} className='pokebola'/>
+            <img src={this.state.statePokeBall === false ? PokeBall : PokeOPen} alt="" onClick={()=> this.openPokeBall()} className='pokebola'/>
             <p className='text'>Tocame la pokeball</p> 
           </div>
           : 
