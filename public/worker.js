@@ -1,7 +1,7 @@
 // Set this to true for production
 var doCache = true;
 // Name our cache
-var CACHE_NAME = 'my-pwa-cache-v1';
+var CACHE_NAME = 'monoku-cache';
 
 // Delete old caches that are not our current one!
 self.addEventListener("activate", event => {
@@ -31,7 +31,7 @@ self.addEventListener('install', function(event) {
           // This is because webpack hashes it
           fetch("asset-manifest.json")
             .then(response => {
-              response.json()
+              return response.json()
             })
             .then(assets => {
               console.log(assets)
@@ -40,7 +40,10 @@ self.addEventListener('install', function(event) {
               // We could also cache any static assets like CSS or images
               const urlsToCache = [
                 "/",
-                assets["main.js"]
+                assets["main.js"],
+                assets["static/media/pokebola.png"],
+                assets["tatic/media/pokebolaoPen.png"],
+                assets["main.css"]
               ]
               cache.addAll(urlsToCache)
               console.log('cached');
@@ -53,13 +56,24 @@ self.addEventListener('install', function(event) {
 // When the webpage goes to fetch files, we intercept that request and serve up the matching files
 // if we have them
 self.addEventListener('fetch', function(event) {
-    debugger
-    console.log(event)
-    if (doCache) {
-      event.respondWith(
-          caches.match(event.request).then(function(response) {
-              return response || fetch(event.request);
-          })
-      );
-    }
+  // Ignore non-get request like when accessing the admin panel
+  if (event.request.method !== 'GET') { return; }
+  // Don't try to handle non-secure assets because fetch will fail
+  // Here's where we cache all the things!
+  event.respondWith(
+    // Open the cache created when install
+    caches.open(CACHE_NAME).then(function(cache) {
+      // Go to the network to ask for that resource
+      return fetch(event.request).then(function(networkResponse) {
+        // Add a copy of the response to the cache (updating the old version)
+        cache.put(event.request, networkResponse.clone());
+        // Respond with it
+        return networkResponse;
+      }).catch(function() {
+        // If there is no internet connection, try to match the request
+        // to some of our cached resources
+        return cache.match(event.request);
+      })
+    })
+  );
 });

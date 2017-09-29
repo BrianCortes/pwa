@@ -26,7 +26,7 @@ class Pokemon extends Component {
       'JonathanRLopez',
       'jjmedinas'
     ]  
-    Api.getPokemon(perfiles[random(0,11)])
+    Api.getPokemon(perfiles[0])
       .then((response) => {
         console.log('quien es ese pokemon')   
         const data = response.data
