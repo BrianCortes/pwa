@@ -23,6 +23,8 @@
   height: 200px;
   border-radius: 50%;
   box-shadow: 0px 0px 148px 0px rgba(0,0,0,0.75);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .containerUser{
@@ -39,4 +41,18 @@
   color: white;
   -webkit-font-smoothing: none;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.sendPus{
+  width: 80vw;
+  height: 10vw;
+  border: 1px solid #8c0505;
+  color: #f5f2f1;
+  background-color: #E91E63;
+  max-width: 191px;
+  display: flex;
+  min-height: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
 }

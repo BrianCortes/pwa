@@ -3,6 +3,8 @@ import Api from '../util/callApi'
 import { random } from 'lodash'
 import PokeBall from './pokebola.png'
 import PokeOPen from './pokebolaoPen.png'
+import Open from './checked.png'
+import Close from './error.png'
 import './pokemon.css'
 
 class Pokemon extends Component {
@@ -42,8 +44,7 @@ class Pokemon extends Component {
   componentDidMount = () => {
     Notification.requestPermission(function(status) {
       console.log('Notification permission status:', status);
-    });
-    
+    });  
   }
 
   callPushNotification = () => {
@@ -57,23 +58,32 @@ class Pokemon extends Component {
             data: {
               dateOfArrival: Date.now(),
               primaryKey: 1
-            }
+            },
+            actions: [
+              {action: 'explore', title: 'Explore this new world',
+                icon: Open},
+              {action: 'close', title: 'Close notification',
+              icon: Close},
+            ]
           };
           reg.showNotification('Soy la ostia', options);
         });
       }
-    }, 10000)
+    }, 1000)
   }
 
   getPokemon = () => {
     const pokemon = this.state.pokemon
+    const style={
+      backgroundImage: `url(${pokemon.avatar_url})`
+    }
     debugger
     return (
       <div className='containerUser'>
         <p className='nameUser'>{pokemon.name}</p>
-        <img src={pokemon.avatar_url} className='imageUser' alt=""/>
+        <div style={style} className='imageUser' alt=""/>
         <p className='nameUser'>from: {pokemon.company}</p>
-        <input type="submit" value="Submit" onClick={() => this.callPushNotification()}/>
+        <div className='sendPus' type="submit" onClick={() => this.callPushNotification()}>PUSH NOTIFICATION</div>
       </div>
     )
   }
