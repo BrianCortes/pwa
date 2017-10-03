@@ -39,6 +39,32 @@ class Pokemon extends Component {
     this.setState({statePokeBall: true})
     setTimeout(() => this.setState({showPokemon: true}) , 2000)
   }
+  componentDidMount = () => {
+    Notification.requestPermission(function(status) {
+      console.log('Notification permission status:', status);
+    });
+    
+  }
+
+  callPushNotification = () => {
+    setTimeout(() => {
+      if (Notification.permission == 'granted') {
+        navigator.serviceWorker.getRegistration().then(function(reg) {
+          var options = {
+            body: 'Te amo',
+            icon: PokeBall,
+            vibrate: [100, 50, 100],
+            data: {
+              dateOfArrival: Date.now(),
+              primaryKey: 1
+            }
+          };
+          reg.showNotification('Soy la ostia', options);
+        });
+      }
+    }, 10000)
+  }
+
   getPokemon = () => {
     const pokemon = this.state.pokemon
     debugger
@@ -47,6 +73,7 @@ class Pokemon extends Component {
         <p className='nameUser'>{pokemon.name}</p>
         <img src={pokemon.avatar_url} className='imageUser' alt=""/>
         <p className='nameUser'>from: {pokemon.company}</p>
+        <input type="submit" value="Submit" onClick={() => this.callPushNotification()}/>
       </div>
     )
   }
