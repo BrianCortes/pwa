@@ -39,6 +39,9 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
+          navigator.serviceWorker.ready.then(registration => {
+            registration.unregister();
+          });
           navigator.serviceWorker.register('worker.js').then(function(registration) {
             // Registration was successful
             setTimeout(()=> { 

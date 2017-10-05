@@ -27,7 +27,8 @@ class Pokemon extends Component {
       'SoyAndresHernandez',
       'JonathanRLopez',
       'jjmedinas'
-    ]  
+    ]
+    document.body.dispatchEvent(new Event('install'))
     Api.getPokemon(perfiles[0])
       .then((response) => {
         console.log('quien es ese pokemon')   
@@ -36,6 +37,7 @@ class Pokemon extends Component {
           pokemon: data
         })
       })
+    
   }
   openPokeBall = () => {
     this.setState({statePokeBall: true})
@@ -94,7 +96,7 @@ class Pokemon extends Component {
         { this.state.showPokemon === false ?
           <div>
             <img src={this.state.statePokeBall === false ? PokeBall : PokeOPen} alt="" onClick={()=> this.openPokeBall()} className='pokebola'/>
-            <p className='text'>Tocame la pokeball</p> 
+            <p className='text'>Tocame</p> 
           </div>
           : 
           this.getPokemon()
