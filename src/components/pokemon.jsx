@@ -96,7 +96,7 @@ class Pokemon extends Component {
         { this.state.showPokemon === false ?
           <div>
             <img src={this.state.statePokeBall === false ? PokeBall : PokeOPen} alt="" onClick={()=> this.openPokeBall()} className='pokebola'/>
-            <p className='text'>Tocame</p> 
+            <p className='text'>luis te amo</p> 
           </div>
           : 
           this.getPokemon()

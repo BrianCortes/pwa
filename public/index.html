@@ -39,15 +39,8 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-          navigator.serviceWorker.ready.then(registration => {
-            registration.unregister();
-          });
-          navigator.serviceWorker.register('worker.js').then(function(registration) {
+          navigator.serviceWorker.register('sw.js').then(function(registration) {
             // Registration was successful
-            setTimeout(()=> { 
-              console.log('actualizado')
-              registration.update}
-            , 20000)
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
           }, function(err) {
             // registration failed :(
